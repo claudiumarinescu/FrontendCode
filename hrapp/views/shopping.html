@@ -13,27 +13,32 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-
-                <a class="navbar-brand" href="#">Total price:</a>
-                <span class="navbar-brand" ng-bind="totald"></span>
                 <a class="navbar-brand" href="#" ng-click="changeView()">Go to Cart</a>
+                <div class="navbar-brand">Total price:</div>
+                <span class="navbar-brand" ng-bind="totald"></span>
+
             </div>
         </div>
     </nav>
-    <div ng-controller="ImageController" ng-hide="cartShow">
-        <div class="panel panel-default">
-                <div class="panel-body">
-                        <div ng-repeat="image in imageList">
-                            <img ng-src={{image.url}} style="height:150px; width:150px" ng-mouseover="priceShow=true"
-                                 ng-mouseleave="priceShow=false" ng-click='cumpara(image.name,image.url,image.price)'>
-                            <p>{{image.name}} <span ng-show="priceShow"> | Price: {{image.price}}</span></p>
-                        </div>
 
+    <div class="jumbotron" ng-controller="ImageController" ng-hide="cartShow">
+        <div class="content" style="width: 250px; align-self: center">
+            <div ng-repeat="image in imageList">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{image.name}} <span ng-show="priceShow"> | Price: {{image.price}}</span>
+                    </div>
+                </div>
+                <div class="panel-body" align="center">
+                    <img ng-src={{image.url}} style="height:150px; width:150px" ng-mouseover="priceShow=true"
+                         ng-mouseleave="priceShow=false" ng-click='cumpara(image.name,image.url,image.price)'>
                 </div>
             </div>
+        </div>
     </div>
 
-        <div ng-include="shoppingcart.html" ng-show="cartShow"></div>
+
+    <div ng-include="shoppingcart.html" ng-show="cartShow"></div>
 
 
 
