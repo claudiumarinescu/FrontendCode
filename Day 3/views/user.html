@@ -1,0 +1,30 @@
+<div class="container" align="center" ng-init="vis=false">
+    <p>First Name: <input type="text" ng-model="fname"></p>
+    <p>Last Name: <input type="text" ng-model="lname"></p>
+    <p>CNP: <input type="number" ng-model="cnp"></p>
+    <p>Age: <input type="number" ng-model="age"></p>
+
+    <button class="btn btn-default" ng-click="back()">Back</button>
+    <button class="btn btn-default" ng-click="resetInput()">Reset</button>
+    <button class="btn btn-default" ng-click="saveInput()">Save</button>
+    <button class="btn btn-default" ng-click="vis=!vis">Show/Hide user list</button>
+
+    <p></p>
+
+    <div class="jumbotron" align="center" ng-if="vis">
+        <table class="table table-striped">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>CNP</th>
+                <th>Age</th>
+            </tr>
+            <tr ng-repeat="iter in inputList">
+                <td>{{iter.fname}}</td>
+                <td>{{iter.lname}}</td>
+                <td>{{iter.cnp}}</td>
+                <td>{{iter.age}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
