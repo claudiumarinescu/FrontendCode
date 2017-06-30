@@ -1,0 +1,22 @@
+<div>
+    <select ng-model="myColor" ng-change="changeColor()" ng-options="color.text for color in colors track by color.text"></select>
+
+    <select ng-model="myColor" ng-change="changeColor()" ng-options="color.text group by color.type for color in colors track by color.text"></select>
+
+    <h1>
+        <span ng-class="myColor.class">Some text</span>
+    </h1>
+
+    <p>
+        FILTER BY: <input name="filterOp" ng-model="filterOp">
+    </p>
+    <p>
+        ORDER BY: <input name="orderOp" ng-model="orderOp">
+    </p>
+    <ul>
+        <li ng-repeat="color in colors | orderBy: orderOp | filter: filterOp">
+            {{color.text}}
+        </li>
+    </ul>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="jumbotron" align="left" ng-init="sub=false">
+    <ng-form name="myForm" ng-controller="FormsController">
+        Type something: <input name="input" ng-model="userType" required minlength="4">
+        <span class="error" ng-show="myForm.input.$error.required">Required! </span>
+        <span class="error" ng-show="myForm.input.$invalid">Minimum 4 chars!! </span><br>
+        userType = {{userType}}<br>
+        myForm.$pristine = {{myForm.$pristine}}<br>
+        myForm.$dirty = {{myForm.$dirty}}<br>
+        myForm.input.$valid = {{myForm.input.$valid}}<br>
+        myForm.input.$invalid = {{myForm.input.$invalid}}<br>
+        myForm.input.$error = {{myForm.input.$error}}<br>
+        myForm.$valid = {{myForm.$valid}}<br>
+        myForm.$error.required = {{!!myForm.$error.required}}<br>
+        myForm.$submitted = {{myForm.$submitted}}<br>
+
+        <button class="btn btn-default" ng-click="checkNsubmit()">Submit</button>
+
+        <p ng-show="sub">
+            Congrats! You have submitted the form!
+        </p>
+    </ng-form>
+</div>

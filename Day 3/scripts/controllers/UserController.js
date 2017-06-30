@@ -5,25 +5,21 @@ hrApp.controller('UserController', ['$scope', '$location', 'inputList',
     function($scope, $location, inputList) {
 
         $scope.inputList = inputList;
+        $scope.user = {};
 
         $scope.back = function() {
             $location.url('/#');
         }
 
         $scope.resetInput = function() {
-            $scope.fname = '';
-            $scope.lname = '';
-            $scope.cnp = '';
-            $scope.age = '';
+            $scope.user.fname = '';
+            $scope.user.lname = '';
+            $scope.user.cnp = '';
+            $scope.user.age = '';
         }
 
         $scope.saveInput = function() {
-            inputList.push({
-                fname: $scope.fname,
-                lname: $scope.lname,
-                cnp: $scope.cnp,
-                age: $scope.age
-            })
+            inputList.push(angular.copy($scope.user));
         }
     }
 ])
