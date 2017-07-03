@@ -1,10 +1,42 @@
-hrApp.controller('EmployeeEditController', ['$scope', '$http', '$routeParams', '$location', 'commonResourcesFactoryBackup',
-    function ($scope, $http, $routeParams, $location, commonResourcesFactoryBackup) {
+hrApp.controller('EmployeeEditController', ['$scope', '$http', '$routeParams', '$location', 'CommonResourcesFactory',
+    'EmployeeService', 'ManagerService',
+    function ($scope, $http, $routeParams, $location, CommonResourcesFactory, EmployeeService, ManagerService) {
         $scope.requiredErrorMessage = "Please fill out this form!";
         $scope.patternDateNotRespectedMessage = "The date format should be yyyy-mm-dd";
         $scope.patternCommisionNotRespectedMessage = "Commission should be in the format 0.XX";
 
         //TODO #HR5
+        $scope.jobs = [];
+        $scope.departments = [];
+        $scope.employees = [];
+        $scope.managers = [];
+
+
+        EmployeeService.findManagers()
+            .then(
+                function(payload) {
+                    $scope.employees = payload.data;
+                    $scope.managers = ManagerService.filterManagers($scope.employees);
+            });
+
+        EmployeeService.findJobs()
+            .then(
+                function(payload) {
+                    $scope.jobs = payload.data;
+            });
+
+        EmployeeService.findDepartments()
+            .then(
+                function(payload) {
+                    $scope.departments = payload.data;
+            });
+
+        EmployeeService.findById($routeParams.employeeId)
+            .then(function (res) {
+                $scope.employee = res.data;
+            }, function (err) {
+                console.log("Error at employees/findOne: " + err);
+            });
 
         /**
          * Reset form
@@ -18,7 +50,7 @@ hrApp.controller('EmployeeEditController', ['$scope', '$http', '$routeParams', '
          * @param addEmployee - employee to be persisted
          */
         $scope.create = function (addEmployee) {
-            $http({url: commonResourcesFactoryBackup.editEmployeeUrl, method: 'PUT', data: addEmployee})
+            $http({url: CommonResourcesFactory.editEmployeeUrl, method: 'PUT', data: addEmployee})
                 .success(function (data) {
                     $scope.employee = data;
                     $location.url('/employeeView/' + $scope.employee.employeeId);
